@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guyun — Your files, in a bucket you own</title>
+<meta name="description" content="Guyun is a file manager for the object storage you already own: Alibaba Cloud OSS, Tencent Cloud COS, Cloudflare R2, Backblaze B2, MinIO, or any S3-compatible service. No account, no server of ours, no telemetry — keys stay on your device. Free on iPhone, iPad and Mac.">
+<meta name="theme-color" content="#fbfaf7">
+<link rel="icon" href="../assets/favicon.png">
+<link rel="apple-touch-icon" href="../assets/app-icon-180.png">
+<link rel="stylesheet" href="../styles.css">
+<link rel="alternate" hreflang="zh-Hans" href="https://jianghui1974.github.io/Guyun/">
+<link rel="alternate" hreflang="zh-Hant" href="https://jianghui1974.github.io/Guyun/tw/">
+<link rel="alternate" hreflang="en" href="https://jianghui1974.github.io/Guyun/en/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Guyun — Your files, in a bucket you own">
+<meta property="og:description" content="A file manager for object storage you own. No account, no server of ours, no telemetry. Free on iPhone, iPad and Mac.">
+<meta property="og:image" content="https://jianghui1974.github.io/Guyun/assets/og-en.png">
+<meta property="og:url" content="https://jianghui1974.github.io/Guyun/en/">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></symbol>
+  <symbol id="i-transfer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20V5m0 0L3.5 8.5M7 5l3.5 3.5"/><path d="M17 4v15m0 0 3.5-3.5M17 19l-3.5-3.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="2.5" y="8" width="19" height="8" rx="4"/><circle cx="7.5" cy="12" r="1.6"/><path d="M12 12h6"/></symbol>
+  <symbol id="i-ledger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 19h16"/><rect x="5" y="11" width="3.4" height="5" rx="1"/><rect x="10.3" y="7" width="3.4" height="9" rx="1"/><rect x="15.6" y="13" width="3.4" height="3" rx="1"/></symbol>
+  <symbol id="i-bucket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><ellipse cx="12" cy="6.2" rx="7.5" ry="2.7"/><path d="M4.5 6.2v11.6c0 1.5 3.4 2.7 7.5 2.7s7.5-1.2 7.5-2.7V6.2"/><path d="M4.5 12c0 1.5 3.4 2.7 7.5 2.7s7.5-1.2 7.5-2.7"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="4.5" rx="1.4"/><path d="M5 9v9.2c0 .7.6 1.3 1.3 1.3h11.4c.7 0 1.3-.6 1.3-1.3V9"/><path d="M10 13h4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="M10.5 9.2v5.6l4.6-2.8z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 6.5h16"/><path d="M9.5 6.5V4.8c0-.7.6-1.3 1.3-1.3h2.4c.7 0 1.3.6 1.3 1.3v1.7"/><path d="M6.5 6.5 7.4 19c.1 1 .9 1.7 1.9 1.7h5.4c1 0 1.8-.7 1.9-1.7l.9-12.5"/></symbol>
+  <symbol id="i-devices" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="12" height="9" rx="1.6"/><path d="M5.5 17h6"/><path d="M8.5 13v4"/><rect x="16.5" y="8" width="5" height="12" rx="1.4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10.5" rx="3"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/><circle cx="12" cy="15.2" r="1.3"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8V5.5c0-1.1.9-2 2-2H8"/><path d="M16 3.5h2.5c1.1 0 2 .9 2 2V8"/><path d="M20.5 16v2.5c0 1.1-.9 2-2 2H16"/><path d="M8 20.5H5.5c-1.1 0-2-.9-2-2V16"/><path d="M3.5 12h17"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 5 6v6c0 4.2 2.9 7.5 7 8.8 4.1-1.3 7-4.6 7-8.8V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="8" cy="8" r="4.2"/><path d="m11 11 8.5 8.5"/><path d="m16 16 2-2"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.4 2.3 3.7 5.3 3.7 8.5s-1.3 6.2-3.7 8.5c-2.4-2.3-3.7-5.3-3.7-8.5S9.6 5.8 12 3.5z"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <img src="../assets/app-icon.png" alt="Guyun app icon">
+      Guyun <span style="font-weight:500;color:var(--muted);font-size:14px;letter-spacing:0">孤云</span>
+    </a>
+    <nav>
+      <a href="#why">Why</a>
+      <a href="#features">Features</a>
+      <a href="#shots">Screens</a>
+      <a href="#cost">Cost</a>
+      <a href="#start">Get started</a>
+      <a href="#faq">FAQ</a>
+      <a class="lang" href="../" hreflang="zh-Hans">中文</a>
+      <a class="btn btn-primary nav-cta" href="https://apps.apple.com/us/app/id6809848348" style="padding:8px 16px;font-size:14px">App Store</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Personal cloud drive · iPhone / iPad / Mac</p>
+      <h1>Your files, in a<br><em>bucket you own</em></h1>
+      <p class="lede">
+        Guyun is a file manager for the object storage you already pay for — Alibaba Cloud OSS,
+        Tencent Cloud COS, Cloudflare R2, Backblaze B2, MinIO, or any S3-compatible service.
+        <strong>The bucket, the keys and the bill are yours</strong>: no account system, no server of
+        ours, no telemetry. Files go straight from this device to your own bucket.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://apps.apple.com/us/app/id6809848348">Get it on the App Store</a>
+        <a class="btn btn-ghost" href="#features">See what it does</a>
+      </div>
+      <div class="meta-line">
+        <span>Free</span>
+        <span>iOS 17 / iPadOS 17 / macOS 14 or later</span>
+        <span>English · 简体中文 · 繁體中文</span>
+      </div>
+    </div>
+    <div>
+      <figure class="phone" style="margin:0">
+        <img src="../assets/shots/en/iphone-1.webp" width="750" height="1622"
+             alt="Guyun welcome screen: the cloud mark, the line “Your files, at ease in the cloud”, and a Connect a storage service button">
+      </figure>
+    </div>
+  </div>
+</div>
+
+<section id="why" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>A cloud drive puts your files on someone else's servers. Guyun doesn't.</h2>
+      <p>Most cloud drives decide for you: how much space, how fast, when the price goes up. With Guyun the bucket sits in your own cloud account, so those decisions stay yours.</p>
+    </div>
+    <table class="compare">
+      <thead>
+        <tr><th scope="col"></th><th scope="col">Typical cloud drive</th><th scope="col" class="col-us">Guyun</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Space</th><td data-label="Cloud drive">Priced by the vendor, bought in tiers</td><td class="col-us" data-label="Guyun">Your bucket, at your provider's rates, resized whenever you need</td></tr>
+        <tr><th scope="row">Speed</th><td data-label="Cloud drive">Tied to your membership tier</td><td class="col-us" data-label="Guyun">Only your bucket and your network — no artificial throttling</td></tr>
+        <tr><th scope="row">Cost</th><td data-label="Cloud drive">A subscription; the vendor decides when it rises</td><td class="col-us" data-label="Guyun">App is free; storage and traffic billed by your provider, we take no cut</td></tr>
+        <tr><th scope="row">If it shuts down</th><td data-label="Cloud drive">The service ends, and the files go with it</td><td class="col-us" data-label="Guyun">The bucket stays; any tool can still read it</td></tr>
+        <tr><th scope="row">Moving out</th><td data-label="Cloud drive">Rate-limited exports, proprietary formats</td><td class="col-us" data-label="Guyun">Standard object storage, readable by anything</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="features" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What it does</h2>
+      <p>Browsing, transfers, previews, trash — the everyday parts are all here. No social feed, no recommendations, no guessing what you might like.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="ico"><svg><use href="#i-grid"/></svg></span>
+        <h3>Browse and manage</h3>
+        <p>Grid or list, sorted by name, date or size; new folders, rename, copy and move.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-search"/></svg></span>
+        <h3>Whole-bucket search</h3>
+        <p>Searches the entire bucket, not just the folder you happen to be in.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-transfer"/></svg></span>
+        <h3>Upload and download</h3>
+        <p>From Files or Photos, or a whole folder at once. Pause and resume the queue; downloads go to a folder or to Photos.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-clock"/></svg></span>
+        <h3>Background transfers on iOS</h3>
+        <p>Files up to 200 MB go to the system as one request and finish even if you switch apps or lock the screen; larger ones continue with the background time granted.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-pill"/></svg></span>
+        <h3>Progress, wherever you are</h3>
+        <p>A small pill in the corner shows how many transfers are running, how far along, and whether something is waiting for you.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-ledger"/></svg></span>
+        <h3>Usage ledger</h3>
+        <p>How much Guyun moved today, this month and last month — by bucket and by device, with cellular counted separately and kept on this device.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-bucket"/></svg></span>
+        <h3>Storage size</h3>
+        <p>Measure a bucket to get its file count and total size. A large one can be finished over several taps; the result stays on this device.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-archive"/></svg></span>
+        <h3>Archive files</h3>
+        <p>Archived objects are marked, and the app asks before a restore — how long, who is billed, whether it can be cancelled, all in the dialog.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-play"/></svg></span>
+        <h3>Preview</h3>
+        <p>Zoom images, play video while it is still loading, open PDF and text. Previewing leaves no transfer record.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-trash"/></svg></span>
+        <h3>Trash</h3>
+        <p>Deletes move into the bucket's own trash folder, where they can be restored or removed for good — with a confirmation first.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-devices"/></svg></span>
+        <h3>Several devices</h3>
+        <p>The same bucket on iPhone, iPad and Mac; hand a configuration to another device by scanning a code instead of typing keys.</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-lock"/></svg></span>
+        <h3>Locks</h3>
+        <p>Face ID / Touch ID for the whole app or one storage. Transfers keep running while locked, and turning a lock off always asks for authentication first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shots" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Screens</h2>
+      <p>One design across three platforms. Tap any image to enlarge it.</p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Choose a device">
+      <button role="tab" id="tab-iphone" aria-selected="true" aria-controls="strip-iphone" data-device="iphone">iPhone</button>
+      <button role="tab" id="tab-ipad" aria-selected="false" aria-controls="strip-ipad" data-device="ipad">iPad</button>
+      <button role="tab" id="tab-mac" aria-selected="false" aria-controls="strip-mac" data-device="mac">Mac</button>
+    </div>
+
+    <div class="strip" id="strip-iphone" role="tabpanel" aria-labelledby="tab-iphone">
+      <figure class="shot-phone"><img src="../assets/shots/en/iphone-1.webp" width="750" height="1622" loading="lazy" alt="Welcome"><figcaption>Welcome</figcaption></figure>
+      <figure class="shot-phone"><img src="../assets/shots/en/iphone-2.webp" width="750" height="1622" loading="lazy" alt="File list"><figcaption>Files</figcaption></figure>
+      <figure class="shot-phone"><img src="../assets/shots/en/iphone-3.webp" width="750" height="1622" loading="lazy" alt="Grid view"><figcaption>Grid</figcaption></figure>
+      <figure class="shot-phone"><img src="../assets/shots/en/iphone-4.webp" width="750" height="1622" loading="lazy" alt="File info"><figcaption>File info</figcaption></figure>
+      <figure class="shot-phone"><img src="../assets/shots/en/iphone-5.webp" width="750" height="1622" loading="lazy" alt="Settings"><figcaption>Settings</figcaption></figure>
+    </div>
+
+    <div class="strip" id="strip-ipad" role="tabpanel" aria-labelledby="tab-ipad" hidden>
+      <figure class="shot-pad"><img src="../assets/shots/en/ipad-1.webp" width="900" height="1200" loading="lazy" alt="iPad welcome"><figcaption>Welcome</figcaption></figure>
+      <figure class="shot-pad"><img src="../assets/shots/en/ipad-2.webp" width="900" height="1200" loading="lazy" alt="iPad file list"><figcaption>Files</figcaption></figure>
+      <figure class="shot-pad"><img src="../assets/shots/en/ipad-3.webp" width="900" height="1200" loading="lazy" alt="iPad grid"><figcaption>Grid</figcaption></figure>
+      <figure class="shot-pad"><img src="../assets/shots/en/ipad-4.webp" width="900" height="1200" loading="lazy" alt="iPad file info"><figcaption>File info</figcaption></figure>
+      <figure class="shot-pad"><img src="../assets/shots/en/ipad-5.webp" width="900" height="1200" loading="lazy" alt="iPad settings"><figcaption>Settings</figcaption></figure>
+    </div>
+
+    <div class="strip" id="strip-mac" role="tabpanel" aria-labelledby="tab-mac" hidden>
+      <figure class="shot-mac"><img src="../assets/shots/en/mac-1.webp" width="1200" height="600" loading="lazy" alt="Mac welcome"><figcaption>Welcome</figcaption></figure>
+      <figure class="shot-mac"><img src="../assets/shots/en/mac-2.webp" width="1200" height="600" loading="lazy" alt="Mac file list"><figcaption>Files</figcaption></figure>
+      <figure class="shot-mac"><img src="../assets/shots/en/mac-3.webp" width="1200" height="600" loading="lazy" alt="Mac grid"><figcaption>Grid</figcaption></figure>
+      <figure class="shot-mac"><img src="../assets/shots/en/mac-4.webp" width="1200" height="600" loading="lazy" alt="Mac file info"><figcaption>File info</figcaption></figure>
+      <figure class="shot-mac"><img src="../assets/shots/en/mac-5.webp" width="1200" height="600" loading="lazy" alt="Mac settings"><figcaption>Settings</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="cost" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Free app. The only bill is your bucket.</h2>
+      <p>Guyun provides no storage and takes no cut of yours. What you pay your cloud provider is the whole cost.</p>
+    </div>
+
+    <div class="price-grid">
+      <div>
+        <table class="price-table">
+          <thead>
+            <tr><th scope="col">Scenario</th><th scope="col">Stored</th><th scope="col">Monthly egress</th><th scope="col">China region, per month</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Light</th><td data-label="Stored">50 GB</td><td data-label="Egress">10 GB</td><td data-label="Per month">about ¥8–11</td></tr>
+            <tr><th scope="row">Everyday</th><td data-label="Stored">200 GB</td><td data-label="Egress">50 GB</td><td data-label="Per month">about ¥36–51</td></tr>
+            <tr><th scope="row">Large</th><td data-label="Stored">1 TB</td><td data-label="Egress">100 GB</td><td data-label="Per month">about ¥141–182</td></tr>
+            <tr><th scope="row">Archive</th><td data-label="Stored">2 TB archived</td><td data-label="Egress">5 GB restored</td><td data-label="Per month">about ¥62–68</td></tr>
+          </tbody>
+        </table>
+        <p class="note">
+          Estimates from official list prices as of October 2026, excluding request fees; archive tiers add
+          minimum storage duration and retrieval charges. Prices change — check your provider before ordering.
+        </p>
+      </div>
+      <div class="card" style="padding:26px">
+        <span class="ico"><svg><use href="#i-globe"/></svg></span>
+        <h3>Run the numbers first</h3>
+        <p style="margin-bottom:14px">
+          The same “200 GB stored, 50 GB read a month” can differ by a few dollars between providers —
+          and by several times once egress is involved. The storage price is rarely the deciding number.
+        </p>
+        <p style="margin-bottom:16px;font-size:14.8px;color:var(--muted)">
+          We compared 19 object-storage providers: storage, egress, minimums and free tiers, plus the monthly
+          cost of four typical scenarios.
+        </p>
+        <a class="btn btn-ghost" href="https://www.godar.cn/products/guyun/setup/cost/" target="_blank" rel="noopener">Open the cost calculator ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="start" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Getting started</h2>
+      <p>You need exactly two things: a bucket, and a key pair allowed to use only that bucket.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>Create a private bucket</h3>
+        <p>In your provider's console, create a bucket and keep it private. Make an access key for Guyun that is allowed to use only that bucket — never your root key.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>Pick the service and place</h3>
+        <p>Choose the provider and region in the app; the endpoint and region fill themselves in. You type the bucket name and the keys — Tencent COS also wants the APPID that ends its bucket names.</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>Connect and go</h3>
+        <p>The connection test only lists the bucket root. On success the keys go into this device's Keychain, and browsing, uploading and previewing feel like local files.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="ico"><svg width="22" height="22"><use href="#i-key"/></svg></span>
+      <div>
+        <h3>No bucket yet? Walk through it with the demo storage</h3>
+        <p>The built-in demo storage generates sample photos, a video and a PDF on your device: no account,
+        no keys, no network. Browse, preview, upload, rename, copy, move, delete and restore. Remove it
+        whenever you like; nothing is left behind.</p>
+      </div>
+    </div>
+
+    <table class="spec">
+      <tr><th>Platform</th><td>iPhone / iPad / Mac — one app covers all three</td></tr>
+      <tr><th>Requires</th><td>iOS 17 / iPadOS 17 / macOS 14 or later</td></tr>
+      <tr><th>Storage</th><td>Alibaba Cloud OSS, Tencent Cloud COS, Qiniu, Upyun, Backblaze B2, Cloudflare R2, MinIO, and any S3-compatible service</td></tr>
+      <tr><th>Languages</th><td>English, Simplified Chinese, Traditional Chinese (switch in Settings; applies next time you open the app)</td></tr>
+      <tr><th>Price</th><td>Free. Storage and egress are billed by your provider at its published rates</td></tr>
+      <tr><th>Name</th><td>Guyun (孤云) — “a lone cloud”, from a poem by Li Bai: “The birds have flown away; a lone cloud drifts off at ease.”</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="privacy" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Privacy, in plain terms</h2>
+      <p>No account and no server of ours — so there is nothing of yours for us to collect.</p>
+    </div>
+    <ul class="privacy-list">
+      <li><svg><use href="#i-shield"/></svg><span><b>It talks to your address only.</b> The app talks to the storage you entered and to nothing else: no relay server, no telemetry.</span></li>
+      <li><svg><use href="#i-key"/></svg><span><b>Keys stay on this device.</b> Access keys live in this device's Keychain — never uploaded, never exported with a configuration, never synced through iCloud.</span></li>
+      <li><svg><use href="#i-scan"/></svg><span><b>The handoff code contains your keys in plain text.</b> Keys leave the device only when you deliberately hand a storage to another device. Treat the code like a password and show it to your own device only.</span></li>
+      <li><svg><use href="#i-globe"/></svg><span><b>No usage data.</b> No third-party SDKs, no analytics, no ads — not even “anonymous statistics”.</span></li>
+      <li><svg><use href="#i-lock"/></svg><span><b>Face ID / Touch ID is the system's job.</b> That data never leaves your device; the app only learns pass or fail.</span></li>
+      <li><svg><use href="#i-shield"/></svg><span><b>Locks are screen gates, not encryption.</b> They keep out someone who picks up your unlocked device; files stay under whatever permissions your bucket gives them.</span></li>
+    </ul>
+    <p style="margin-top:26px"><a href="https://www.godar.cn/Guyun-privacy-policy.html" target="_blank" rel="noopener">Full privacy policy →</a></p>
+  </div>
+</section>
+
+<section id="faq" class="section alt">
+  <div class="wrap faq" style="max-width:900px">
+    <div class="section-head">
+      <h2>Questions</h2>
+    </div>
+
+    <details open>
+      <summary>Do I need my own cloud storage?</summary>
+      <div class="body">
+        <p>Yes. Guyun provides no storage: you need an object-storage bucket and a key pair allowed to use only that bucket. It works with Alibaba Cloud OSS, Tencent Cloud COS, Qiniu, Upyun, Backblaze B2, Cloudflare R2, MinIO and any S3-compatible service.</p>
+        <p>If you don't have one yet, the built-in demo storage takes you through the whole app without an account, keys or a network.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is the app really free?</summary>
+      <div class="body">
+        <p>Yes. No subscription, no in-app purchase, no feature locks, and no cut of your storage bill. The only thing you pay for is your provider's invoice — storage and egress, at its published rates.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why can't I connect to a bucket in mainland China?</summary>
+      <div class="body">
+        <p>That is not a Guyun limit. For OSS accounts opened on or after 20 March 2025, the default public endpoint refuses data operations (uploads and downloads) on buckets in mainland regions, returning <code>PublicEndpointForbidden</code> — private buckets included, and it depends on when OSS was opened, not when the bucket was created.</p>
+        <p>To stay in a mainland region, bind a custom domain with an ICP filing to the bucket and put that domain in the endpoint field. Otherwise use a bucket in Hong Kong or another overseas region, or run MinIO yourself.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Do my files go through your servers?</summary>
+      <div class="body">
+        <p>No. There is no account system and no server of ours: the app talks to the storage address you enter, and files travel straight from this device to your bucket.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Are my keys safe?</summary>
+      <div class="body">
+        <p>Access keys live only in this device's Keychain — not uploaded, not exported with a configuration, not synced through iCloud.</p>
+        <p>The one exception is a handoff you start yourself: the code contains the keys in plain text, expires after 60 seconds, can be claimed once and can be cancelled. Show it only to your own device, and rotate the keys at your provider if it might have been seen.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Do I have to re-enter keys after switching phones or reinstalling?</summary>
+      <div class="body">
+        <p>Yes. Keys are not synced through iCloud — that is the price of keeping them on the device. Use “Add by scanning a code” to bring the whole configuration over from the old device (valid for 60 seconds), or type the keys again.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Do my devices sync automatically?</summary>
+      <div class="body">
+        <p>No. Guyun is not a sync tool and not an automatic backup tool: it never starts a transfer on its own. Every upload and download is started by you and shows its result.</p>
+        <p>The same bucket can be connected on iPhone, iPad and Mac at once; anything written by one device appears on the others after a refresh.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where do deleted files go?</summary>
+      <div class="body">
+        <p>Into the bucket's own trash folder, where they can be restored or removed for good — with a confirmation first.</p>
+        <p>The trash lives in your bucket, so it takes up storage and is billed like any other file. Emptying it is how the bill goes down.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta">
+      <h2>Take your files back</h2>
+      <p>Free download, no sign-up. Works with a bucket — and without one.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://apps.apple.com/us/app/id6809848348">Get it on the App Store</a>
+        <a class="btn btn-ghost" href="https://www.godar.cn/products/guyun/setup/" target="_blank" rel="noopener">Setup guides</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">
+          <img src="../assets/app-icon.png" alt="">
+          Guyun 孤云
+        </div>
+        <div>Your files, in a bucket you own.</div>
+        <div class="foot-about">
+          <p class="foot-about-lead">JIANG HUI · independent developer</p>
+          <p>The name comes from a poem by Li Bai. Other work:
+            <a href="https://www.godar.cn" target="_blank" rel="noopener">godar.cn</a>.</p>
+          <p>Questions, ideas, partnerships: <a href="mailto:contact@airdiode.com">contact@airdiode.com</a></p>
+        </div>
+      </div>
+      <nav aria-label="Site">
+        <a href="#why">Why</a>
+        <a href="#features">Features</a>
+        <a href="#shots">Screens</a>
+        <a href="#cost">Cost</a>
+      </nav>
+      <nav aria-label="More">
+        <a href="#start">Get started</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://www.godar.cn/products/guyun/setup/" target="_blank" rel="noopener">Setup guides</a>
+        <a href="https://www.godar.cn/Guyun-privacy-policy.html" target="_blank" rel="noopener">Privacy policy</a>
+        <a href="../" hreflang="zh-Hans">简体中文</a>
+        <a href="../tw/" hreflang="zh-Hant">繁體中文</a>
+        <a href="https://apps.apple.com/cn/app/id6809848348" target="_blank" rel="noopener">China App Store</a>
+      </nav>
+    </div>
+    <p class="legal">
+      © <span id="year">2026</span> Guyun · All rights reserved. Guyun is closed-source software, free to download and use.<br>
+      The app provides no cloud space; storage and egress are billed by your provider at its published rates. Prices on this page are indicative only.<br>
+      Not affiliated with Apple Inc. Apple, iPhone, iPad, Mac, App Store, iCloud, Face ID and Touch ID are trademarks of Apple Inc.
+    </p>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Enlarged screenshot">
+  <button type="button" aria-label="Close">×</button>
+  <img alt="">
+</dialog>
+
+<script>
+(function () {
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  var tabs = document.querySelectorAll(".tabs [role=tab]");
+  Array.prototype.forEach.call(tabs, function (tab) {
+    tab.addEventListener("click", function () {
+      Array.prototype.forEach.call(tabs, function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+    });
+  });
+
+  var dlg = document.getElementById("lightbox");
+  var big = dlg.querySelector("img");
+  if (dlg.showModal) {
+    Array.prototype.forEach.call(document.querySelectorAll(".strip img, .phone img"), function (img) {
+      img.addEventListener("click", function () {
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt;
+        dlg.showModal();
+      });
+    });
+    dlg.addEventListener("click", function (e) {
+      if (e.target === dlg || e.target.tagName === "BUTTON") dlg.close();
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

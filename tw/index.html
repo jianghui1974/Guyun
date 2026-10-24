@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>孤雲 Guyun — 你的檔案，就在你自己的桶裡</title>
+<meta name="description" content="孤雲是一款連接你自己物件儲存的檔案管理器：阿里雲 OSS、騰訊雲 COS、Cloudflare R2、Backblaze B2、MinIO 或任何 S3 相容服務。沒有帳號、沒有我們的伺服器、沒有遙測，金鑰只留在本機。iPhone / iPad / Mac，App 免費。">
+<meta name="theme-color" content="#fbfaf7">
+<link rel="icon" href="../assets/favicon.png">
+<link rel="apple-touch-icon" href="../assets/app-icon-180.png">
+<link rel="stylesheet" href="../styles.css">
+<link rel="alternate" hreflang="zh-Hans" href="https://jianghui1974.github.io/Guyun/">
+<link rel="alternate" hreflang="zh-Hant" href="https://jianghui1974.github.io/Guyun/tw/">
+<link rel="alternate" hreflang="en" href="https://jianghui1974.github.io/Guyun/en/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="孤雲 Guyun — 你的檔案，就在你自己的桶裡">
+<meta property="og:description" content="連接你自己物件儲存的檔案管理器。沒有帳號、沒有我們的伺服器、沒有遙測。iPhone / iPad / Mac，App 免費。">
+<meta property="og:image" content="https://jianghui1974.github.io/Guyun/assets/og-tw.png">
+<meta property="og:url" content="https://jianghui1974.github.io/Guyun/tw/">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></symbol>
+  <symbol id="i-transfer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20V5m0 0L3.5 8.5M7 5l3.5 3.5"/><path d="M17 4v15m0 0 3.5-3.5M17 19l-3.5-3.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="2.5" y="8" width="19" height="8" rx="4"/><circle cx="7.5" cy="12" r="1.6"/><path d="M12 12h6"/></symbol>
+  <symbol id="i-ledger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 19h16"/><rect x="5" y="11" width="3.4" height="5" rx="1"/><rect x="10.3" y="7" width="3.4" height="9" rx="1"/><rect x="15.6" y="13" width="3.4" height="3" rx="1"/></symbol>
+  <symbol id="i-bucket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><ellipse cx="12" cy="6.2" rx="7.5" ry="2.7"/><path d="M4.5 6.2v11.6c0 1.5 3.4 2.7 7.5 2.7s7.5-1.2 7.5-2.7V6.2"/><path d="M4.5 12c0 1.5 3.4 2.7 7.5 2.7s7.5-1.2 7.5-2.7"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="4.5" rx="1.4"/><path d="M5 9v9.2c0 .7.6 1.3 1.3 1.3h11.4c.7 0 1.3-.6 1.3-1.3V9"/><path d="M10 13h4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="M10.5 9.2v5.6l4.6-2.8z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 6.5h16"/><path d="M9.5 6.5V4.8c0-.7.6-1.3 1.3-1.3h2.4c.7 0 1.3.6 1.3 1.3v1.7"/><path d="M6.5 6.5 7.4 19c.1 1 .9 1.7 1.9 1.7h5.4c1 0 1.8-.7 1.9-1.7l.9-12.5"/></symbol>
+  <symbol id="i-devices" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="12" height="9" rx="1.6"/><path d="M5.5 17h6"/><path d="M8.5 13v4"/><rect x="16.5" y="8" width="5" height="12" rx="1.4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="4.5" y="10" width="15" height="10.5" rx="3"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/><circle cx="12" cy="15.2" r="1.3"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8V5.5c0-1.1.9-2 2-2H8"/><path d="M16 3.5h2.5c1.1 0 2 .9 2 2V8"/><path d="M20.5 16v2.5c0 1.1-.9 2-2 2H16"/><path d="M8 20.5H5.5c-1.1 0-2-.9-2-2V16"/><path d="M3.5 12h17"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 5 6v6c0 4.2 2.9 7.5 7 8.8 4.1-1.3 7-4.6 7-8.8V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="8" cy="8" r="4.2"/><path d="m11 11 8.5 8.5"/><path d="m16 16 2-2"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.4 2.3 3.7 5.3 3.7 8.5s-1.3 6.2-3.7 8.5c-2.4-2.3-3.7-5.3-3.7-8.5S9.6 5.8 12 3.5z"/></symbol>
+</svg>
+
+<a class="skip" href="#main">跳到主要內容</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <img src="../assets/app-icon.png" alt="孤雲 App 圖示">
+      孤雲 <span style="font-weight:500;color:var(--muted);font-size:14px;letter-spacing:0">Guyun</span>
+    </a>
+    <nav>
+      <a href="#why">為什麼</a>
+      <a href="#features">功能</a>
+      <a href="#shots">介面</a>
+      <a href="#cost">費用</a>
+      <a href="#start">開始使用</a>
+      <a href="#faq">常見問題</a>
+      <a class="lang" href="../en/" hreflang="en">EN</a>
+      <a class="btn btn-primary nav-cta" href="https://apps.apple.com/tw/app/id6809848348" style="padding:8px 16px;font-size:14px">App Store</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">個人雲端硬碟 · iPhone / iPad / Mac</p>
+      <h1>你的檔案，<br>就在<em>你自己的桶</em>裡</h1>
+      <p class="lede">
+        孤雲是一款連接你自己物件儲存的檔案管理器——阿里雲 OSS、騰訊雲 COS、Cloudflare R2、
+        Backblaze B2、MinIO，或任何 S3 相容服務。<strong>桶是你的、金鑰是你的、帳單也是你自己的</strong>：
+        沒有帳號體系，沒有我們的伺服器，也沒有遙測，檔案從這台裝置直達你自己的桶。
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://apps.apple.com/tw/app/id6809848348">在 App Store 下載</a>
+        <a class="btn btn-ghost" href="#features">看看它能做什麼</a>
+      </div>
+      <div class="meta-line">
+        <span>App 免費</span>
+        <span>iOS 17 / iPadOS 17 / macOS 14 以上</span>
+        <span>繁體中文 · 简体中文 · English</span>
+      </div>
+    </div>
+    <div>
+      <figure class="phone" style="margin:0">
+        <img src="../assets/shots/tw/iphone-1.webp" width="750" height="1622"
+             alt="孤雲歡迎頁：雲紋標誌、標語「我的檔案，自在雲端」，以及「連接儲存服務」按鈕">
+      </figure>
+    </div>
+  </div>
+</div>
+
+<section id="why" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>網盤把檔案放在別人的伺服器上，孤雲不是</h2>
+      <p>多數網盤替你做決定：空間多大、速度多少、什麼時候漲價。孤雲的桶在你自己的雲端帳號名下，所以這些決定也歸你。</p>
+    </div>
+    <table class="compare">
+      <thead>
+        <tr><th scope="col"></th><th scope="col">傳統網盤</th><th scope="col" class="col-us">孤雲</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">空間</th><td data-label="傳統網盤">由廠商定價，依方案購買</td><td class="col-us" data-label="孤雲">你的桶，依服務商牌價，隨時能擴</td></tr>
+        <tr><th scope="row">速度</th><td data-label="傳統網盤">與會員等級綁定</td><td class="col-us" data-label="孤雲">只取決於你的桶與網路，沒有人為限速</td></tr>
+        <tr><th scope="row">費用</th><td data-label="傳統網盤">訂閱制，漲價由廠商決定</td><td class="col-us" data-label="孤雲">App 免費；儲存與流量依服務商帳單，我們不抽成</td></tr>
+        <tr><th scope="row">服務終止</th><td data-label="傳統網盤">服務關閉，檔案跟著消失</td><td class="col-us" data-label="孤雲">桶還在，換個工具照樣能讀</td></tr>
+        <tr><th scope="row">搬家</th><td data-label="傳統網盤">匯出限速、格式受限</td><td class="col-us" data-label="孤雲">檔案本來就是標準物件儲存，誰都能讀</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="features" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>它能做什麼</h2>
+      <p>日常要用的都在：瀏覽、傳輸、預覽、垃圾桶。沒有社群，沒有推薦，也沒有「猜你喜歡」。</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="ico"><svg><use href="#i-grid"/></svg></span>
+        <h3>瀏覽與管理</h3>
+        <p>格狀與列表兩種檢視，依名稱、修改日期或大小排序；新增資料夾、重新命名、複製與搬移。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-search"/></svg></span>
+        <h3>全桶搜尋</h3>
+        <p>搜整個桶，而不只是你正待著的那個資料夾。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-transfer"/></svg></span>
+        <h3>上傳與下載</h3>
+        <p>從「檔案」或「照片」上傳，也可以整個資料夾一起傳；佇列可以暫停與繼續，下載可以存到資料夾或「照片」。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-clock"/></svg></span>
+        <h3>iOS 背景傳輸</h3>
+        <p>200 MB 以內的檔案一次交給系統，切換 App 或鎖屏都會繼續完成；更大的檔案依系統給的背景時間繼續傳。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-pill"/></svg></span>
+        <h3>進度隨處可見</h3>
+        <p>任何畫面角落有個小膠囊：有幾個任務在跑、傳到哪裡了、有沒有事等你處理，點它進傳輸頁。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-ledger"/></svg></span>
+        <h3>用量統計</h3>
+        <p>今天、本月、上月傳了多少，可依桶與依裝置分開看；行動網路單獨統計，只留在這台裝置上。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-bucket"/></svg></span>
+        <h3>儲存總量</h3>
+        <p>讓某個桶被統計一次，App 給出檔案數與合計大小；大桶可以分幾次點完，結果只留在這台裝置上。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-archive"/></svg></span>
+        <h3>封存檔案</h3>
+        <p>封存與冷封存檔案會被標出；讀取前先問是否要解凍——耗時多久、誰計費、能不能取消，都寫在對話框裡。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-play"/></svg></span>
+        <h3>預覽</h3>
+        <p>圖片可縮放，影片邊下邊播，PDF 與文字直接開啟，不留下傳輸記錄。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-trash"/></svg></span>
+        <h3>垃圾桶</h3>
+        <p>刪除會移進桶自己的垃圾桶目錄，那裡可以還原或徹底刪除，徹底刪除必須先確認。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-devices"/></svg></span>
+        <h3>多台裝置</h3>
+        <p>同一個桶在 iPhone、iPad 與 Mac 上都能用；設定可以掃碼交給另一台裝置，不必手打金鑰。</p>
+      </div>
+      <div class="card">
+        <span class="ico"><svg><use href="#i-lock"/></svg></span>
+        <h3>鎖定</h3>
+        <p>整體或單一儲存用面容 / 指紋解鎖；鎖著時傳輸照常繼續，關閉鎖定一定先要求一次裝置驗證。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shots" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>介面</h2>
+      <p>三個平台同一套設計。點開任一張可以放大；更多畫面見 App Store 上的產品頁。</p>
+    </div>
+    <div class="strip">
+      <figure class="shot-phone"><img src="../assets/shots/tw/iphone-1.webp" width="750" height="1622" loading="lazy" alt="歡迎頁"><figcaption>歡迎與連接</figcaption></figure>
+      <figure class="shot-phone"><img src="../assets/shots/tw/frame-1.webp" width="750" height="1630" loading="lazy" alt="檔案就在你自己的桶裡"><figcaption>檔案列表</figcaption></figure>
+      <figure class="shot-mac"><img src="../assets/shots/tw/mac-1.webp" width="1200" height="600" loading="lazy" alt="Mac 檔案列表"><figcaption>Mac · 檔案列表</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="cost" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>收費：App 免費，只有桶要錢</h2>
+      <p>孤雲不提供儲存空間，也不從你的儲存裡抽成。你付給雲端服務商的那筆錢，就是全部成本。</p>
+    </div>
+
+    <div class="price-grid">
+      <div>
+        <table class="price-table">
+          <thead>
+            <tr><th scope="col">情境</th><th scope="col">存多少</th><th scope="col">每月下行</th><th scope="col">中國區參考月費</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">輕量</th><td data-label="存多少">50 GB</td><td data-label="每月下行">10 GB</td><td data-label="參考月費">約 8–11 元</td></tr>
+            <tr><th scope="row">主力</th><td data-label="存多少">200 GB</td><td data-label="每月下行">50 GB</td><td data-label="參考月費">約 36–51 元</td></tr>
+            <tr><th scope="row">大庫</th><td data-label="存多少">1 TB</td><td data-label="每月下行">100 GB</td><td data-label="參考月費">約 141–182 元</td></tr>
+            <tr><th scope="row">冷存</th><td data-label="存多少">2 TB 封存</td><td data-label="每月下行">5 GB 取回</td><td data-label="參考月費">約 62–68 元</td></tr>
+          </tbody>
+        </table>
+        <p class="note">
+          依 2026 年 10 月各家官方牌價估算，未含請求費；封存類另有最短存放期與取回費。
+          價格隨時會變，下單前請以服務商官網為準。
+        </p>
+      </div>
+      <div class="card" style="padding:26px">
+        <span class="ico"><svg><use href="#i-globe"/></svg></span>
+        <h3>先算一筆，再決定</h3>
+        <p style="margin-bottom:14px">
+          同一份「存 200 GB、每月讀 50 GB」的用法，在國內幾家之間能差出十幾元，海外幾家更是差出幾倍。
+          關鍵不在儲存單價，而在下行流量怎麼算。
+        </p>
+        <p style="margin-bottom:16px;font-size:14.8px;color:var(--muted)">
+          我們做了一份比價：19 家物件儲存的儲存價、出網價、最低消費與免費額度，以及四個情境的月成本。
+        </p>
+        <a class="btn btn-ghost" href="https://www.godar.cn/products/guyun/setup/cost/" target="_blank" rel="noopener">打開費用試算工具 ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="start" class="section alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>開始使用</h2>
+      <p>你需要準備的只有兩樣：一個桶，和一對只授權這個桶的金鑰。</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>建一個私有桶</h3>
+        <p>在服務商控制台新建一個桶並設為私有。為孤雲單獨建一組只授權該桶的存取金鑰，不要用主帳號的金鑰。</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>選服務與地點</h3>
+        <p>在 App 裡選服務商和區域，Endpoint 與區域會自動填好。你只需填桶名和金鑰——騰訊雲 COS 還要填桶名結尾的 APPID。</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>連上就開始用</h3>
+        <p>連線測試只列出根目錄，成功後金鑰存進這台裝置的 Keychain。之後瀏覽、上傳、預覽都和在本地一樣直接。</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="ico"><svg width="22" height="22"><use href="#i-key"/></svg></span>
+      <div>
+        <h3>還沒有桶？先用示範儲存走一遍</h3>
+        <p>內建的示範儲存在本機產生示範照片、一段影片和一份 PDF：不用帳號、不用金鑰、不連網，
+        瀏覽、預覽、上傳、重新命名、複製、搬移、刪除與還原都能試。隨時可以移除，不留下任何東西。</p>
+      </div>
+    </div>
+
+    <table class="spec">
+      <tr><th>平台</th><td>iPhone / iPad / Mac，同一份 App 涵蓋三個平台</td></tr>
+      <tr><th>系統</th><td>iOS 17 / iPadOS 17 / macOS 14 以上</td></tr>
+      <tr><th>儲存服務</th><td>阿里雲 OSS、騰訊雲 COS、七牛、又拍雲、Backblaze B2、Cloudflare R2、MinIO，以及任何 S3 相容服務</td></tr>
+      <tr><th>介面語言</th><td>繁體中文、简体中文、English（在設定裡切換，下次開啟 App 生效）</td></tr>
+      <tr><th>價格</th><td>免費。儲存與外網流量由你的雲端服務商依其牌價計費</td></tr>
+      <tr><th>名字</th><td>孤雲，取自李白《獨坐敬亭山》：「眾鳥高飛盡，孤雲獨去閒」</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="privacy" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>隱私，直說</h2>
+      <p>沒有帳號，也沒有我們的伺服器——所以能收集你的東西，一樣都沒有。</p>
+    </div>
+    <ul class="privacy-list">
+      <li><svg><use href="#i-shield"/></svg><span><b>只連你填的位址。</b>App 與你的儲存通訊，別的什麼都不連；沒有中轉伺服器，也沒有遙測。</span></li>
+      <li><svg><use href="#i-key"/></svg><span><b>金鑰只在本機。</b>存取金鑰存在這台裝置的 Keychain 裡，不上傳、不隨設定匯出，也不經 iCloud 同步。</span></li>
+      <li><svg><use href="#i-scan"/></svg><span><b>交接碼裡是明文金鑰。</b>只有你主動把儲存交給另一台裝置時，金鑰才會離開本機——把它當密碼，只給自己的裝置掃。</span></li>
+      <li><svg><use href="#i-globe"/></svg><span><b>不蒐集使用資料。</b>沒有第三方 SDK，沒有分析，沒有廣告，也沒有「匿名統計」。</span></li>
+      <li><svg><use href="#i-lock"/></svg><span><b>面容 / 指紋由系統處理。</b>這些資料不會離開你的裝置，App 只拿到「通過」或「不通過」。</span></li>
+      <li><svg><use href="#i-shield"/></svg><span><b>鎖是介面門，不是加密。</b>它擋的是別人拿起你這台已解鎖的裝置；檔案本身仍依你桶的權限存放。</span></li>
+    </ul>
+    <p style="margin-top:26px"><a href="https://www.godar.cn/Guyun-privacy-policy.html" target="_blank" rel="noopener">完整隱私權政策 →</a></p>
+  </div>
+</section>
+
+<section id="faq" class="section alt">
+  <div class="wrap faq" style="max-width:900px">
+    <div class="section-head">
+      <h2>常見問題</h2>
+    </div>
+
+    <details open>
+      <summary>我需要自己有雲端儲存嗎？</summary>
+      <div class="body">
+        <p>是。孤雲不提供儲存空間：你要有一個物件儲存桶，以及一對只授權這個桶的存取金鑰。支援阿里雲 OSS、騰訊雲 COS、七牛、又拍雲、Backblaze B2、Cloudflare R2、MinIO，以及任何 S3 相容服務。</p>
+        <p>還沒有的話，先用內建的示範儲存把整個 App 走一遍，不需要帳號、金鑰或網路。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>App 真的免費嗎？</summary>
+      <div class="body">
+        <p>是。沒有訂閱、沒有內購、沒有功能鎖，也不從你的儲存費用裡抽成。你要付的只有雲端服務商那筆帳單——儲存與外網流量，依它公布的牌價。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>阿里雲中國內地的桶為什麼連不上？</summary>
+      <div class="body">
+        <p>這不是孤雲的限制。2025-03-20 起新開通 OSS 的帳號，用預設外網網域存取內地地域的桶，資料類介面（含上傳、下載）一律被拒，回傳 <code>PublicEndpointForbidden</code>；私有桶、不对外提供連結也不例外，判斷依據是 OSS 開通時間而不是建桶時間。</p>
+        <p>要留在內地地域，就給桶綁定一個已備案的自訂網域，並把它填在 Endpoint 裡；或者改用香港 / 海外地域的桶，也可以用 MinIO 自建。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>我的檔案會經過你們的伺服器嗎？</summary>
+      <div class="body">
+        <p>不會。沒有帳號體系，也沒有我們的伺服器：App 只與你填寫的儲存位址通訊，檔案從這台裝置直達你自己的桶。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>金鑰安全嗎？</summary>
+      <div class="body">
+        <p>存取金鑰只存在這台裝置的 Keychain 裡，不上傳、不隨設定匯出、也不經 iCloud 同步。</p>
+        <p>唯一的例外是你主動交接：把儲存交給另一台裝置時，交接碼裡就是明文金鑰，60 秒後失效、只能被領取一次、可隨時取消。只給自己的裝置掃，若可能被看到就到服務商處輪換金鑰。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>換手機或重裝後要重新填金鑰嗎？</summary>
+      <div class="body">
+        <p>要。金鑰不隨 iCloud 同步，這也是它不離開本機的代價。換裝置時可以用「掃碼新增」從舊裝置把整份設定帶過去，60 秒內有效；也可以重新填一次。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>多台裝置之間會自動同步嗎？</summary>
+      <div class="body">
+        <p>不會。孤雲不是同步工具，也不是自動備份工具：它不會自己在背景啟動傳輸，每一次上傳與下載都由你發起、並且能看見結果。</p>
+        <p>同一個桶可以在 iPhone、iPad 與 Mac 上同時連接，任一台寫入的變更，在別處重新整理一下就能看到。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>刪除的檔案去哪了？</summary>
+      <div class="body">
+        <p>進桶自己的垃圾桶目錄，可以還原或徹底刪除；徹底刪除必須二次確認。</p>
+        <p>垃圾桶就在你的桶裡，所以它佔的儲存空間和你其他檔案一樣計費——清空它，帳單才會降下來。</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap">
+    <div class="cta">
+      <h2>把檔案拿回自己手裡</h2>
+      <p>免費下載，無需註冊。有桶就能用，沒有桶也能先試。</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://apps.apple.com/tw/app/id6809848348">在 App Store 下載</a>
+        <a class="btn btn-ghost" href="https://www.godar.cn/products/guyun/setup/" target="_blank" rel="noopener">設定引導</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">
+          <img src="../assets/app-icon.png" alt="">
+          孤雲 Guyun
+        </div>
+        <div>你的檔案，就在你自己的桶裡。</div>
+        <div class="foot-about">
+          <p class="foot-about-lead">JIANG HUI · 獨立開發者</p>
+          <p>孤雲取自李白《獨坐敬亭山》。其他作品與專案見
+            <a href="https://www.godar.cn" target="_blank" rel="noopener">godar.cn</a>。</p>
+          <p>問題、建議或合作：<a href="mailto:contact@airdiode.com">contact@airdiode.com</a></p>
+        </div>
+      </div>
+      <nav aria-label="站內導覽">
+        <a href="#why">為什麼</a>
+        <a href="#features">功能</a>
+        <a href="#shots">介面</a>
+        <a href="#cost">費用</a>
+      </nav>
+      <nav aria-label="更多">
+        <a href="#start">開始使用</a>
+        <a href="#faq">常見問題</a>
+        <a href="https://www.godar.cn/products/guyun/setup/" target="_blank" rel="noopener">設定引導</a>
+        <a href="https://www.godar.cn/Guyun-privacy-policy.html" target="_blank" rel="noopener">隱私權政策</a>
+        <a href="../" hreflang="zh-Hans">简体中文</a>
+        <a href="../en/" hreflang="en">English</a>
+        <a href="https://apps.apple.com/cn/app/id6809848348" target="_blank" rel="noopener">中國 App Store</a>
+      </nav>
+    </div>
+    <p class="legal">
+      © <span id="year">2026</span> 孤雲 Guyun · 保留所有權利。孤雲為閉源軟體，免費提供下載與使用。<br>
+      App 不提供雲端空間；儲存與外網流量由你的雲端服務商依其牌價計費。本頁價格資料僅供參考，以服務商官網為準。<br>
+      與 Apple Inc. 無隸屬關係。Apple、iPhone、iPad、Mac、App Store、iCloud、Face ID、Touch ID 是 Apple Inc. 的商標。
+    </p>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="放大檢視截圖">
+  <button type="button" aria-label="關閉">×</button>
+  <img alt="">
+</dialog>
+
+<script>
+(function () {
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  var tabs = document.querySelectorAll(".tabs [role=tab]");
+  Array.prototype.forEach.call(tabs, function (tab) {
+    tab.addEventListener("click", function () {
+      Array.prototype.forEach.call(tabs, function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+    });
+  });
+
+  var dlg = document.getElementById("lightbox");
+  var big = dlg.querySelector("img");
+  if (dlg.showModal) {
+    Array.prototype.forEach.call(document.querySelectorAll(".strip img, .phone img"), function (img) {
+      img.addEventListener("click", function () {
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt;
+        dlg.showModal();
+      });
+    });
+    dlg.addEventListener("click", function (e) {
+      if (e.target === dlg || e.target.tagName === "BUTTON") dlg.close();
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
