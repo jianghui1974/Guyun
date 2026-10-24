@@ -82,13 +82,21 @@ img { max-width: 100%; height: auto; }
 .site-header nav a { color: var(--muted); }
 .site-header nav a:hover { color: var(--teal); text-decoration: none; }
 
-.lang {
+/* Language switcher: one pill with three segments, the current one filled. Three separate pills
+   read as three calls to action; a single control reads as "this page exists in three languages". */
+.langs {
+  display: inline-flex; align-items: center;
   border: 1px solid var(--line); border-radius: 999px;
-  padding: 3px 11px; font-size: 13px; background: #fff; color: var(--muted);
-  display: inline-flex; gap: 6px; align-items: center;
+  background: #fff; overflow: hidden;
 }
-.lang b { color: var(--teal); font-weight: 600; }
-.lang:hover { border-color: var(--teal); text-decoration: none; }
+.langs a {
+  padding: 2px 10px; font-size: 12.5px; line-height: 1.9;
+  color: var(--muted); white-space: nowrap;
+}
+.langs a + a { border-left: 1px solid var(--line-soft); }
+.langs a:hover { color: var(--teal); text-decoration: none; background: var(--teal-soft); }
+.langs a[aria-current="page"] { background: var(--teal); color: #fff; font-weight: 600; }
+.langs a[aria-current="page"]:hover { background: var(--teal); color: #fff; }
 
 .nav-cta { display: inline-flex; }
 .site-header nav a.nav-cta { color: #fff; }
@@ -434,8 +442,12 @@ dialog.lightbox button {
   .site-header nav { gap: 16px; }
 }
 
+@media (max-width: 430px) {
+  .site-header nav a.nav-cta { display: none; }
+}
+
 @media (max-width: 760px) {
-  .site-header nav a:not(.lang):not(.nav-cta) { display: none; }
+  .site-header nav > a:not(.nav-cta) { display: none; }
   .section { padding: 62px 0; }
   .cards, .cards.two, .privacy-list { grid-template-columns: 1fr; }
   .compare { font-size: 14px; }
