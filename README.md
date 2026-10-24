@@ -36,7 +36,7 @@ python3 -m http.server 8000
 
 - **文案**：三份 HTML 各自独立，改哪语改哪份；数字与事实以 App Store 上的描述和 `docs/COST-COMPARISON.md` 为准。
 - **App Store 链接**：`https://apps.apple.com/{cn|us|tw}/app/id6809848348`，每页只放本语言对应的那一个，页脚再给另两个。
-- **截图**：用的是 **1.3.0 提交 App Store 的那一套**（`/Users/jianghui/Downloads/孤云/孤云/1.3.0-上传/01-截屏/`，iPhone 1206×2622 / iPad 2064×2752 / Mac 2880×1800，**三语各 5 张、每张自带标题**），转成 WebP 后放进 `assets/shots/<lang>/`：`iphone-1..5`、`ipad-1..5`、`mac-1..5`。因为标题已经烧在图里，页面上**不再加 figcaption**。首屏那张欢迎页单独叫 `welcome.webp`（中文/英文取自官网产品页，繁中取自仓库 `artifacts/ios-screenshots/`）。换新截图时按同一命名覆盖，并把 HTML 里的 `width`/`height` 一起改掉。
+- **截图**：`界面` 区有四个页签——iPhone / **iPhone Duo** / iPad / Mac。iPhone Duo 的两块屏（外屏 1398×2034、内屏 2007×2853）用 `duo-1..5.webp`，取自 `Downloads/孤云/孤云/Duo 截图/`（带标题的成片）；其余三档用的是 **1.3.0 提交 App Store 的那一套**（`/Users/jianghui/Downloads/孤云/孤云/1.3.0-上传/01-截屏/`，iPhone 1206×2622 / iPad 2064×2752 / Mac 2880×1800，**三语各 5 张、每张自带标题**），转成 WebP 后放进 `assets/shots/<lang>/`：`iphone-1..5`、`ipad-1..5`、`mac-1..5`。因为标题已经烧在图里，页面上**不再加 figcaption**。首屏那张欢迎页单独叫 `welcome.webp`（中文/英文取自官网产品页，繁中取自仓库 `artifacts/ios-screenshots/`）。换新截图时按同一命名覆盖，并把 HTML 里的 `width`/`height` 一起改掉。
 - **样式**：品牌色 `--teal: #1F7573`（深色档 `#5CC7BD`），演示存储紫 `#6B52C7`，与 App 的设计规范一致。响应式断点 980 / 760 / 620。
 
 ## 部署
