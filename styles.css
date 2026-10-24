@@ -385,6 +385,10 @@ h3 { font-size: 18px; margin: 0 0 8px; letter-spacing: -0.1px; }
   font-size: 12.5px; color: rgba(255, 255, 255, 0.45); line-height: 1.8;
 }
 .legal a { color: rgba(255, 255, 255, 0.6); }
+/* The app filing number is a legal notice rather than fine print, so it sits a step brighter than
+   the rest of the legal block. It is the app's filing, not a filing for this github.io site. */
+.legal .filing { color: rgba(255, 255, 255, 0.62); }
+.legal .filing a { color: rgba(255, 255, 255, 0.8); }
 
 /* ---------- lightbox ---------- */
 
